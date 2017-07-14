@@ -11,11 +11,11 @@
         http://www.springframework.org/schema/context/spring-context-3.2.xsd"
 	default-autowire="byName">
 
-
-	<bean id="propertyConfigurer"  class="com.zallds.architecture.config.ZalldsGlobalPropertyConfigurer">
+<!-- 
+	<bean id="propertyConfigurer"  class="">
 		<property name="locations">
 			<list>
-				<value>zallsoon_master.properties</value>
+				<value>master.properties</value>
 				<value>api.properties</value>
 				<value>push.properties</value>
 				<value>dubbo-coupon.properties</value>
@@ -29,7 +29,7 @@
 		<property name="poolId">
 			<value>backend/coupon</value>
 		</property>
-	</bean>
+	</bean> -->
 
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
