@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.io.StringReader;
 import java.util.HashSet;
 import java.util.List;
@@ -20,7 +21,7 @@ import org.jdom2.xpath.XPath;
 
 
 
-public class Sqlmap2Table {
+public class Sqlmap2Table implements Serializable{
 
 	 // 默认所有的varchar都是512，可以保证满足绝大多数的字段  
     private static final String DEFAULT_VARCHAR_LENGTH = "VARCHAR(256)";  

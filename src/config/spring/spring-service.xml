@@ -31,7 +31,7 @@
 		</property>
 	</bean> -->
 
-
+<!-- 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
@@ -58,7 +58,7 @@
 		 <property name="configLocation" value="classpath:mybatis/healthcheck.xml" />
 		 <property name="mapperLocations" value="classpath:mybatis/mapper/*.xml"/>
 	</bean>
-
+ -->
 
  
 
