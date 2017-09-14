@@ -16,7 +16,6 @@ import org.apache.commons.lang.math.RandomUtils;
 
 /**
  * 基于随机数的概率计算工具类
- * @author wayne
  * @date 2017年7月13日 下午2:04:50
  */
 public class ProbabilityUtils {

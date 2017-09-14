@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.Serializable;
 
 /**
- * @author wayne
  * @date 2017年7月11日 下午3:23:21
  */
 public final class IOCase implements Serializable {
