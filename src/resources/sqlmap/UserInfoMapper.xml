@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ch.dao.UserInfoDao" >
+
+	<sql id="BaseColumn">
+        id                  id,
+        user_name           userName ,
+        password            password ,
+        mobile              mobile ,
+        email               email ,
+        created_time        createdTime ,
+        updated_time        updatedTime,
+        is_valid            isValid,
+        token               token
+    </sql>
+
+    <insert id="insert" parameterType="UserInfo">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT into user_info
+            (user_name,password,mobile,email,created_time,updated_time,is_valid,token)
+        VALUE
+            (#{userName},#{password},#{mobile},#{email},#{createdTime},#{updatedTime},#{isValid},#{token})
+    </insert>
+
+
+    <select id="getByMobile" resultType="UserInfo">
+        select <include refid="BaseColumn"/>
+        from user_info
+        where
+            mobile = #{mobile}
+    </select>
+
+    <select id="getById" resultType="UserInfo">
+        select <include refid="BaseColumn"/> from user_info where id =#{id}
+    </select>
+
+    <select id="getByToken" resultType="UserInfo">
+        select <include refid="BaseColumn"/> from user_info
+        where token=#{token}
+    </select>
+
+    <update id="updateToken">
+        update user_info
+        set
+            token =#{token},
+            updated_time = now()
+        where
+            id =#{id}
+    </update>
+
+    <update id="updateValid">
+        update user_info
+        set
+        is_valid =#{is_valid},
+        updated_time = now()
+        where
+        id =#{id}
+    </update>
+
+</mapper>

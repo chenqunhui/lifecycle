@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ch.dao.VerificationCodeDao" >
+
+	<sql id="BaseColumn">
+        id                id,
+        business_type     businessType,
+        mobile     mobile,
+        verification_code verificationCode,
+        created_time      createdTime,
+        expired_time      expiredTime,
+        updated_time      updatedTime,
+        is_valid          isValid
+    </sql>
+
+    <insert id="insert" parameterType="VerificationCode">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT into verification_code
+            (business_type,mobile,verification_code,created_time,expired_time,updated_time,is_valid)
+        VALUE
+            (#{businessType},#{mobile},#{verificationCode},#{createdTime},#{expiredTime},#{updatedTime},#{isValid})
+    </insert>
+
+
+    <select id="getByMobileAndBusinessType" resultType="VerificationCode">
+        select
+        <include refid="BaseColumn"/>
+        from verification_code
+        where
+            mobile = #{mobile}
+        and business_type=#{businessType}
+        order by id desc
+        LIMIT 1
+    </select>
+
+    <update id="invalid">
+        update verification_code set is_valid = 0 where id =#{id}
+    </update>
+</mapper>

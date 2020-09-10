@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    <property name="context_name" value="lifecycle"/>
+    <conversionRule conversionWord="tracelogid" converterClass="com.ch.log.TraceLogIdConverter"/>
+
+
+    <!--log文件-->
+    <!--<appender name="file_log" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+        <!--<file>lifecycl.log</file>-->
+        <!--<Prudent>true</Prudent>-->
+        <!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+            <!--<fileNamePattern>lifecycle.%d{yyyy-MM-dd}.log</fileNamePattern>-->
+            <!--<maxHistory>90</maxHistory>-->
+        <!--</rollingPolicy>-->
+        <!--<encoder>-->
+            <!--<pattern> %d{HH:mm:ss.SSS} [%-5level] [%tracelogid] %file:[%line] - %msg%n</pattern>-->
+            <!--<charset class="java.nio.charset.Charset">UTF-8</charset>-->
+        <!--</encoder>-->
+    <!--</appender>-->
+
+    <appender name="console_log" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%-5level] [%tracelogid] %file:[%line] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!--<logger name="org.apache.ibatis" level="INFO"></logger>-->
+    <!--<logger name="org.apache.zookeeper" level="info"></logger>-->
+    <!--<logger name="org.springframework" level="INFO"></logger>-->
+    <!--<logger name="springfox" level="error"></logger>-->
+
+    <root level="INFO">
+        <appender-ref ref="console_log"/>
+        <!-- <appender-ref ref="file_log"/> -->
+    </root>
+
+
+</configuration>

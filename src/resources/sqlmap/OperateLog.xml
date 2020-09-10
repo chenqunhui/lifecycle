@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ch.dao.OperateLogDao" >
+
+	<sql id="BaseColumn">
+        id                id,
+        trace_id          traceId,
+        path              path,
+        input             input,
+        output            output,
+        remote_info       remoteInfo,
+        created_time      createdTime
+    </sql>
+
+    <insert id="insert" parameterType="OperateLog">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT into operate_log
+            (trace_id,path,input,output,remote_info,created_time)
+        VALUE
+            (#{traceId},#{path},#{input},#{output},#{remoteInfo},#{createdTime})
+    </insert>
+
+
+</mapper>

@@ -123,6 +123,18 @@ public final class DateUtils {
 		date = c.getTime();
 		return date;
 	}
+
+
+	public static Date addMinutes(Date date,int minutes){
+		if (null == date) {
+			return null;
+		}
+		Calendar c = Calendar.getInstance();
+		c.setTime(date); // 设置当前日期
+		c.add(Calendar.MINUTE, minutes); //
+		date = c.getTime();
+		return date;
+	}
 	
 	public static void main(String[] args){
 			System.out.println(startOfDay(new Date()));

@@ -113,8 +113,8 @@ public final class OutputHelper {
         	writer = response.getWriter();
         	writer.write(content);
         }catch(IOException e){
-        	if(logger.isErrorEnabled()) {
-        		logger.error("Output content[" + content + "] by ContentType[" + contentType + "] failed.", e);
+        	if(log.isErrorEnabled()) {
+        		log.error("Output content[" + content + "] by ContentType[" + contentType + "] failed.", e);
         	}
         	
         }finally {
@@ -143,8 +143,8 @@ public final class OutputHelper {
         	writer = response.getWriter();
         	writer.write(content);
         }catch(IOException e){
-        	if(logger.isErrorEnabled()) {
-        		logger.error("Output content[" + content + "] by ContentType[" + contentType + "] and CharacterEncoding[" + characterEncoding + "] failed.", e);
+        	if(log.isErrorEnabled()) {
+        		log.error("Output content[" + content + "] by ContentType[" + contentType + "] and CharacterEncoding[" + characterEncoding + "] failed.", e);
         	}
         }finally {
         	if(writer != null) {

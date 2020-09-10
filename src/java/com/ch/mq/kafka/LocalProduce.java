@@ -3,19 +3,18 @@ package com.ch.mq.kafka;
 import java.util.Properties;
 import java.util.concurrent.Future;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.StringUtils;
 
-
+@Slf4j
 public class LocalProduce implements InitializingBean{
 	
-	private static Logger logger = Logger.getLogger(LocalProduce.class);
-	
+
 	private static Producer<String, String> producer = null;
 	
 	private String topic;
@@ -41,7 +40,7 @@ public class LocalProduce implements InitializingBean{
 				return;
 			}
 			if(StringUtils.isEmpty(topic)){
-				logger.error("Topic can not be null,init TrackProducer failed !");
+				log.error("Topic can not be null,init TrackProducer failed !");
 				throw new Error("TrackProduct init error !");
 			}
 			Properties props = new Properties();
@@ -54,8 +53,8 @@ public class LocalProduce implements InitializingBean{
 			props.put("key.serializer", this.keySerializer);
 	        props.put("value.serializer", this.valueSerializer);
 	        producer = new KafkaProducer<String, String>(props);
-	        if(logger.isDebugEnabled())
-	        logger.debug("TrackProducer [topic:"+topic+"] init success!");
+	        if(log.isDebugEnabled())
+	        log.debug("TrackProducer [topic:"+topic+"] init success!");
 		}
 	}
 	

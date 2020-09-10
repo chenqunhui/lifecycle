@@ -11,8 +11,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.RejectedExecutionHandler;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 
 import com.ch.notify.NotifyMessage;
 import com.ch.notify.NotifyService;
@@ -38,10 +38,11 @@ import com.ch.notify.NotifyService;
  * @author chenqunhui
  *
  */
+
+@Slf4j
 public class AlarmTimingManager{
 	
-	private static Logger logger = Logger.getLogger(AlarmTimingManager.class);
-	
+
 	private static final long DEFAULT_ALARM_TIME = 10*60*1000;
 	
 	//public static final long thresholdCount = 1l;//达到N次慢调用后，就发一次预警数据
@@ -113,7 +114,7 @@ public class AlarmTimingManager{
 				futureResult.get(5000, TimeUnit.SECONDS);
 			} catch (Exception e) {
 				futureResult.cancel(true);
-				logger.warn("future get result failed",e);
+				log.warn("future get result failed",e);
 			}
 		}
 	}
@@ -125,7 +126,7 @@ public class AlarmTimingManager{
 		try {
 			boolean flag=_queue.offer(data,0l,TimeUnit.MILLISECONDS);
 			if(!flag){
-				logger.warn("method:"+data.getMethod()+"alarmValue:"+data.getAlarmValue()+"offer failed.");
+				log.warn("method:"+data.getMethod()+"alarmValue:"+data.getAlarmValue()+"offer failed.");
 			}
 		} catch (InterruptedException e) {
 			// 
@@ -134,10 +135,10 @@ public class AlarmTimingManager{
 	
 	private void checkProperty(){
 		if(null ==notifyService){
-			logger.error("No notifyService has been found! please make sure you has set it, otherwise you will never receive the alarm!");
+			log.error("No notifyService has been found! please make sure you has set it, otherwise you will never receive the alarm!");
 		}
 		if(StringUtils.isEmpty(notifyMembers)){
-			logger.error("No notifyMembers has been found! please make sure you has set it, otherwise you will never receive the alarm!");
+			log.error("No notifyMembers has been found! please make sure you has set it, otherwise you will never receive the alarm!");
 		}
 	}
 	
@@ -153,8 +154,8 @@ public class AlarmTimingManager{
 					try {
 						AlarmData data =_queue.take();
 						MailAlarmJob alarm  = new MailAlarmJob(data);
-						if(logger.isDebugEnabled()){
-							logger.debug("Catch the alarm:"+JSON.toJSONString(data));
+						if(log.isDebugEnabled()){
+							log.debug("Catch the alarm:"+JSON.toJSONString(data));
 						}
 						executor.execute(alarm);
 					} catch (InterruptedException e) {
@@ -166,7 +167,7 @@ public class AlarmTimingManager{
 		};
 		job.setDaemon(true);
 		job.start();*/
-		logger.info("start to take moniter data.");
+		log.info("start to take moniter data.");
 	}
 	
 	
@@ -275,7 +276,7 @@ public class AlarmTimingManager{
 			Status lastStatus = lastAlarmTimeMap.putIfAbsent(key,currentStatus);
 			if(null == lastStatus){
 				if(!currentStatus.isNomal()){
-					logger.warn("First monitor warn:"+JSON.toJSONString(currentStatus));
+					log.warn("First monitor warn:"+JSON.toJSONString(currentStatus));
 				}
 				return;
 			}else{
