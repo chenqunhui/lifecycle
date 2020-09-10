@@ -1,5 +1,5 @@
-.idea/
-.settings/
+.idea/*
+.settings/*
 /target/
 lifecycle.*
 *.log
